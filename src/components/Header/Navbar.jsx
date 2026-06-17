@@ -1,11 +1,30 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Space } from "antd"
 import { Link } from "react-router-dom"
 
 
 const Navbar = () => {
     
+    const [user, setUser] = useState({})
     const [isAuth, setIsAuth] = useState(false)
+
+
+    useEffect(
+        () => {
+            const user = JSON.parse(localStorage.getItem("user"))
+            if (user) {
+                setUser(user)
+                setIsAuth(true)
+            }
+        },[]
+    )
+
+    const handleLogout = () => {
+        localStorage.removeItem('user')
+        setIsAuth(false)
+        setUser({})
+    }
+
 
     return (
         <header>
@@ -37,8 +56,8 @@ const Navbar = () => {
                                     </Space>
                                     :
                                     <Space>
-                                        <Link to='/dashboard' className="btn btn-success">Dashboard</Link>
-                                        <button className="btn btn-danger">Logout</button>
+                                        <Link to='/dashboard/user' className="btn btn-success">Dashboard</Link>
+                                        <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
                                     </Space>
                             }
                         </div>
