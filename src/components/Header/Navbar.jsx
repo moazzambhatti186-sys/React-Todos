@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
 import { Space } from "antd"
 import { Link } from "react-router-dom"
+import { useAuthContext } from "../../context/Auth.jsx"
 
 
 const Navbar = () => {
     
-    const [user, setUser] = useState({})
-    const [isAuth, setIsAuth] = useState(false)
+    // const [user, setUser] = useState({})
+    // const [isAuth, setIsAuth] = useState(false)
 
-
+    const {isAuth,setIsAuth,user, setUser, handleLogout} = useAuthContext()
     useEffect(
         () => {
             const user = JSON.parse(localStorage.getItem("user"))
@@ -19,11 +20,11 @@ const Navbar = () => {
         },[]
     )
 
-    const handleLogout = () => {
-        localStorage.removeItem('user')
-        setIsAuth(false)
-        setUser({})
-    }
+    // const handleLogout = () => {
+    //     localStorage.removeItem('user')
+    //     setIsAuth(false)
+    //     setUser({})
+    // }
 
 
     return (
